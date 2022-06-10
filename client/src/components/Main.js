@@ -140,6 +140,7 @@ const Main = (props) => {
                         <div className="mt-3 d-flex justify-content-between flex-column">
                             <Link to={`/edit/${post._id}`}><button type="button" className="btn btn-primary">Edit</button></Link>
                             <button type="button" onClick={showNewCommentField} className="btn btn-primary">Comment</button>
+                                
                             {
                                 showNewComment
                                 ? <NewComment postID={post._id} userID={user} showNewCommentFieldProp={showNewCommentField} />
@@ -149,8 +150,10 @@ const Main = (props) => {
                         </div>
                         :
                         <div className="mt-3 d-flex justify-content-between flex-column">
-                            <Link to={`/view/${post._id}`}><button type="button" className="btn btn-primary">View</button></Link>
-                            <button type="button" onClick={showNewCommentField} className="btn btn-primary">Comment</button>
+                            <div className='d-flex justify-content-evenly'>
+                                <Link to={`/view/${post._id}`}><button type="button" className="btn btn-primary">View</button></Link>
+                                <button type="button" onClick={showNewCommentField} className="btn btn-primary">Comment</button>
+                            </div>
                             {
                                 showNewComment
                                 ? <NewComment postID={post._id} userID={user}showNewCommentFieldProp={showNewCommentField} />

@@ -31,7 +31,7 @@ const NewComment = (props) => {
     return(
         <form onSubmit={submitHandler}>
             <textarea name="commentBody" onChange={(e) => setComment(e.target.value)}></textarea>
-            <div className='d-flex justify-content-around'>
+            <div className='d-flex justify-content-evenly'>
                 <button type='submit' className="btn btn-primary">Submit</button>
                 <button type='button' onClick={hideNewCommentField}  className="btn btn-primary">Cancel</button>
             </div>
