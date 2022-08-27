@@ -82,8 +82,8 @@
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 7rem;
 }
 
 .your_day {
