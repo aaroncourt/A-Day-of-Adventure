@@ -18,7 +18,7 @@ const PostSchema = new mongoose.Schema({
         },
         maxItems: {
             value: 1,
-            message: props => `maxsimum number of pictures is 4`
+            message: props => `maxsimum number of pictures is 1`
         },
         },
     postedBy: {

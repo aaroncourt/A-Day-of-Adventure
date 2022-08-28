@@ -10,11 +10,17 @@ const EditPost = (props) => {
   const [postBody, setPostBody] = useState("");
   const [postPicture, setPostPicture] = useState("");
   const [postBy, setPostBy] = useState("");
-  const navigate = useNavigate();
-
+  const [newPic,setNewPic] = useState(
+    {
+    postPicture:''
+    }
+  )
   const [post, setPost] = useState({})
   const {id} = useParams(); 
-  console.log(id);
+
+  const navigate = useNavigate();
+  console.log(postBody);
+  console.log(newPic);
 
   useEffect(() => {
       axios.get(`http://localhost:8000/api/posts/${id}`, {withCredentials: true})
@@ -38,44 +44,41 @@ const EditPost = (props) => {
         })
 }
 
-const [newPost,setNewPost] = useState(
-  {
-  postPicture:''
-  }
-)
-
-//// trying to integrate imgeupdate
 function handleSubmit(e) {
-e.preventDefault();
-const formData = new FormData();
+    e.preventDefault();
+    const picData = new FormData();
+    const postData = {
+        'postTitle': postTitle,
+        'postBody': postBody
+    };
+    
+    axios.put(`http://localhost:8000/api/posts/${id}/edit`, postData,{withCredentials: true})
+        .then((res) => {
+            console.log(res)
+            if (newPic.postPicture){
+                picData.append('postPicture', newPic.postPicture);
+                console.log(picData.postPicture)
+                axios.put(`http://localhost:8000/api/post/addimage/${id}`, picData, {withCredentials: true})
+                    .then((res) => {
+                        console.log(res)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        setErrors(err.response.data.errors);
+                    })
+            }
 
-formData.append('postTitle',postTitle);
-formData.append('postBody',postBody);
-formData.append('postPicture',newPost.postPicture);
-
-console.log(newPost.postPicture)
-axios.put(`http://localhost:8000/api/post/addimage/${id}`,formData,{withCredentials: true})
-.then((res) => {
-console.log(res)
-navigate('/home')
-
-})
-.catch((err) => {
-console.log(err)
-setErrors(err.response.data.errors);
-})
-
-
+            navigate('/home')
+        })
+        .catch((err) => {
+            console.log(err)
+            setErrors(err.response.data.errors);
+        })
 }
 
 function handlePhoto(e){
-setNewPost({...newPost,postPicture:e.target.files[0]}) //for single file
-// setNewPost({...newPost,postPicture:e.target.files[0]})
-
-
-console.log(newPost)
-
-
+    setNewPic({...newPic,postPicture:e.target.files[0]}) //for single file
+    console.log(newPic)
 }
 
 

@@ -15,7 +15,6 @@ module.exports = {
         const newP = await Post.create(ps)
         console.log(newP,'this is my P')
 
-
         const profileImageToDB = {
             pictureFileName:req.file.filename,
             pictureByUser:req.jwtpayload.id,
@@ -72,24 +71,25 @@ module.exports = {
     //             console.log(err)
     //         })
     // },
-    updatePost: async (req,res) => {
+    updatePost: async (req, res) => {
         try{
-        const getCreaterId = await Post.find({_id: req.params.id})
-        const creatorId = getCreaterId[0].postedBy.toString()
-        if (req.jwtpayload.id != creatorId ){
-            console.log("You are not authorized to update this post")
-            return
+            const getCreaterId = await Post.find({_id: req.params.id})
+            const creatorId = getCreaterId[0].postedBy.toString()
+            if (req.jwtpayload.id != creatorId ){
+                console.log("You are not authorized to update this post")
+                return
+            }
+            else{
+                console.log("Update Post contents: " + JSON.stringify(req.body))
+                const postUpdate = await Post.findOneAndUpdate({_id: req.params.id}, req.body, {runValidators: true, new: true})
+                console.log(postUpdate)
+                res.json(postUpdate)
+            }
         }
-        else{
-            const postUpdate = await Post.findOneAndUpdate({_id: req.params.id}, req.body, {runValidators: true, new: true})
-            console.log(postUpdate)
-            res.json(postUpdate)
+        catch(err){
+            console.log("something went wrong updating the post")
+            res.status(400).json(err)
         }
-    }
-    catch(err){
-        console.log("something went wrong updating the post")
-        res.status(400).json(err)
-    }
     },
 
     // deletePost: (req, res) => {
