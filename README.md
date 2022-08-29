@@ -21,5 +21,5 @@ This project is receiving ongoing updates.
 2. Comment button is the width of the div element it resides in
 3. Clicking comment button displays comment fields for all posts
 4. Posted comments do not immediately display on page
-5. Some users have reported that they are unable to create a new user, however I am unable to duplicate the issue.
-~~6. Several issues with editing a post which would cause the post to not update or the app to crash.~~ (Resolved 8/27/22)
+5. Some users have reported that they are unable to create a new user, however I am unable to duplicate the issue.  
+6. ~~Several issues with editing a post which would cause the post to not update or the app to crash.~~ (Resolved 8/27/22)
